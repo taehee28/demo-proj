@@ -1,36 +1,26 @@
 package com.thk.demoproj.controller
 
+import com.thk.demoproj.model.PostDto
 import org.springframework.web.bind.annotation.*
 import javax.annotation.PostConstruct
 
 @RestController
 class DemoController {
-    lateinit var map: MutableMap<String, String>
+    private val list = mutableListOf<PostDto>()
 
-    @PostConstruct
-    fun init() {
-        map = mutableMapOf("a" to "apple", "b" to "banana", "c" to "cherry")
-    }
+    @GetMapping("/")
+    fun index() = "hello world"
 
-    @GetMapping("/hello")
-    fun getHelloWorld() = "Hello world!"
+    @GetMapping("/bbs/list")
+    fun getPostList() = list
 
-    @GetMapping("/map/{key}")
-    fun getValue(@PathVariable("key") key: String) = map[key]
+    @PutMapping("/bbs/write")
+    fun putPost(@RequestBody post: PostDto) =
+        list.add(post.copy(timestamp = System.currentTimeMillis()))
 
-    @GetMapping("/map/all")
-    fun getValues() = map
-
-    @PutMapping("/map/{key}")
-    fun putValue(
-        @PathVariable("key") key: String,
-        @RequestParam("value") value: String
-    ) {
-        map[key] = value
-    }
-
-    @DeleteMapping("/map/{key}")
-    fun deleteValue(@PathVariable("key") key: String) {
-        map.remove(key)
+    @DeleteMapping("/bbs/delete")
+    fun deletePost(@RequestParam("postId") postId: Int) {
+        val post = list.find { it.postId == postId }
+        list.remove(post)
     }
 }
