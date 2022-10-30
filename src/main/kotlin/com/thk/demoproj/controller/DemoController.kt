@@ -9,17 +9,23 @@ import java.time.LocalDateTime
 
 @Controller
 class DemoController {
-    @GetMapping("/")
-    fun index(model: Model): String {
-        val list = listOf(
-            PostDto(0, "title1", "content1", "aaa", LocalDateTime.now()),
-            PostDto(0, "title2", "content1", "bbb", LocalDateTime.now()),
-            PostDto(0, "title3", "content1", "ccc", LocalDateTime.now()),
-            PostDto(0, "title4", "content1", "ddd", LocalDateTime.now()),
-        )
+    val list = mutableListOf<PostDto>()
 
+    @GetMapping("/list")
+    fun index(model: Model): String {
         model["postList"] = list
 
         return "index"
+    }
+
+    @GetMapping("/write")
+    fun writeForm(): String {
+        return "write"
+    }
+
+    @PostMapping("/write")
+    fun writePost(post: PostDto): String {
+        list.add(post)
+        return "redirect:/list"
     }
 }
