@@ -37,21 +37,21 @@
 <main class="container">
     <form th:action="@{write}" method="post">
         <div class="mb-3">
-            <input type="text" class="form-control" name="title" placeholder="title" required>
+            <input type="text" class="form-control" name="title" placeholder="제목" required>
         </div>
         <div class="row mb-3">
             <div class="col">
-                <input type="text" class="form-control" name="writer" placeholder="nickname" required>
+                <input type="text" class="form-control" name="writer" placeholder="작성자 이름" required>
             </div>
             <div class="col">
-                <input type="password" class="form-control" name="password" minlength="4" maxlength="20" placeholder="password" required>
+                <input type="password" class="form-control" name="password" minlength="4" maxlength="20" placeholder="비밀번호" required>
             </div>
         </div>
         <div class="mb-3">
-            <textarea class="form-control" name="content" rows="10" style="resize: none;" required></textarea>
+            <textarea class="form-control" name="content" placeholder="내용" rows="10" style="resize: none;" required></textarea>
         </div>
         <div class="col-12" align="end">
-            <button class="btn btn-primary" type="submit">Write</button>
+            <button class="btn btn-primary" type="submit">글쓰기</button>
         </div>
     </form>
 </main>
