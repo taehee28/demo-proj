@@ -52,7 +52,9 @@
         <tbody>
             <tr th:each="post : ${postList}" class="text-center">
                 <td th:text="${post.postId}"></td>
-                <td th:text="${post.title}" class="text-start"></td>
+                <td class="text-start">
+                    <a th:href="'/detail/'+${post.postId}" th:text="${post.title}" style="color: black; text-decoration: none;"></a>
+                </td>
                 <td th:text="${post.writer}"></td>
                 <td th:text="${#temporals.format(post.timestamp, 'yy/MM/dd HH:mm')}"></td>
             </tr>

@@ -25,7 +25,19 @@ class DemoController {
 
     @PostMapping("/write")
     fun writePost(post: PostDto): String {
-        list.add(post)
+        list.add(post.copy(postId = list.size.plus(1)))
         return "redirect:/list"
+    }
+
+    @GetMapping("/detail/{postId}")
+    fun detail(@PathVariable("postId") postId: Int, model: Model): String {
+        for (post in list) {
+            if (post.postId == postId) {
+                model["post"] = post
+                break
+            }
+        }
+
+        return "detail"
     }
 }
