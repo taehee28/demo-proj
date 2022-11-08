@@ -7,5 +7,6 @@ data class PostDto(
     val title: String,
     val content: String,
     val writer: String,
+    val password: String,
     val timestamp: LocalDateTime = LocalDateTime.now()
 )

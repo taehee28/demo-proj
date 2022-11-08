@@ -1,14 +1,16 @@
 package com.thk.demoproj.controller
 
 import com.thk.demoproj.model.PostDto
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.ui.set
 import org.springframework.web.bind.annotation.*
-import java.time.LocalDateTime
 
 @Controller
-class DemoController {
+class DemoController(
+    private val passwordEncoder: PasswordEncoder
+) {
     val list = mutableListOf<PostDto>()
 
     @GetMapping("/list")
@@ -25,7 +27,12 @@ class DemoController {
 
     @PostMapping("/write")
     fun writePost(post: PostDto): String {
-        list.add(post.copy(postId = list.size.plus(1)))
+        list.add(
+            post.copy(
+                postId = list.size.plus(1),
+                password = passwordEncoder.encode(post.password)
+            )
+        )
         return "redirect:/list"
     }
 
